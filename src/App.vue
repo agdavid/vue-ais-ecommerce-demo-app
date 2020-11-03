@@ -1,28 +1,33 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <ais-instant-search :search-client="searchClient" index-name="demo_ecommerce">
+    <ais-search-box />
+    <ais-hits>
+      <div slot="item" slot-scope="{ item }">
+        <h2>{{ item.name }}</h2>
+      </div>
+    </ais-hits>
+  </ais-instant-search>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import algoliasearch from 'algoliasearch/lite';
+import 'instantsearch.css/themes/algolia-min.css';
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      searchClient: algoliasearch(
+        'B1G2GM9NG0',
+        'aadef574be1f9252bb48d4ea09b5cfe5'
+      )
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  body {
+    font-family: sans-serif;
+    padding: 1em;
+  }
 </style>
