@@ -4,7 +4,11 @@
     <div class="left-panel">
       <ais-clear-refinements />
       <h2>Brands</h2>
-      <ais-refinement-list attribute="brand" searchable />
+      <ais-refinement-list 
+        attribute="brand" 
+        searchable 
+        :transform-items="items => items.sort((a,b) => a.value.localeCompare(b.value))"
+      />
       <ais-configure :hitsPerPage="8" />
     </div>
     
@@ -13,6 +17,14 @@
       <ais-hits>
         <div slot="item" slot-scope="{ item }">
           <h2>{{ item.name }}</h2>
+          <img :src="item.image" align="left" :alt="item.name" />
+          <div class="hit-name">
+            <ais-highlight attribute="name" :hit="item"></ais-highlight>
+          </div>
+          <div class="hit-description">
+            <ais-highlight attribute="description" :hit="item"></ais-highlight>
+          </div>
+          <div class="hit-price">${{ item.price }}</div>
         </div>
       </ais-hits>
     </div>
@@ -45,6 +57,20 @@ export default {
   .ais-Hits-list {
     margin-top: 0;
     margin-bottom: 1em;
+  }
+
+  .ais-Hits-item img {
+    margin-right: 1em;
+  }
+
+  .hit-name {
+    margin-bottom: 1em;
+  }
+
+  .hit-description {
+    color: #888;
+    font-size: 0.8em;
+    margin-bottom: 0.5em;
   }
 
   .ais-InstantSearch {
