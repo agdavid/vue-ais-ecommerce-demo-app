@@ -9,6 +9,7 @@
         searchable 
         :transform-items="items => items.sort((a,b) => a.value.localeCompare(b.value))"
       />
+      <custom-menu attribute="categories"></custom-menu>
       <ais-configure :hitsPerPage="8" />
     </div>
     
@@ -35,8 +36,12 @@
 <script>
 import algoliasearch from 'algoliasearch/lite';
 import 'instantsearch.css/themes/algolia-min.css';
+import CustomMenu from './components/CustomMenu.vue';
 
 export default {
+  components: {
+    CustomMenu
+  },
   data() {
     return {
       searchClient: algoliasearch(
